@@ -372,7 +372,7 @@ def process_url(url):
 
 # 解析不同的代理链接
 def parse_proxy_link(link):
-    if link.startswith("hysteria2://"):
+    if link.startswith("hysteria2://") or link.startswith("hy2://"):
         return parse_hysteria2_link(link)
     elif link.startswith("trojan://"):
         return parse_trojan_link(link)
@@ -455,7 +455,7 @@ def merge_lists(*lists):
 def handle_links(new_links,resolve_name_conflicts):
     try:
         for new_link in new_links:
-            if new_link.startswith(("hysteria2://", "trojan://", "ss://", "vless://", "vmess://")):
+            if new_link.startswith(("hysteria2://", "hy2://", "trojan://", "ss://", "vless://", "vmess://")):
                 node = parse_proxy_link(new_link)
                 if node:
                     resolve_name_conflicts(node)
@@ -489,7 +489,7 @@ def generate_clash_config(links,load_nodes):
 
 
     for link in links:
-        if link.startswith(("hysteria2://", "trojan://", "ss://", "vless://", "vmess://")):
+        if link.startswith(("hysteria2://", "hy2://","trojan://", "ss://", "vless://", "vmess://")):
             node = parse_proxy_link(link)
             resolve_name_conflicts(node)
         else:
@@ -1243,11 +1243,11 @@ def work(links,check=False,allowed_types=[],only_check=False):
                 # 切换节点到'节点选择-DIRECT'
                 switch_proxy('DIRECT')
                 asyncio.run(proxy_clean())
-                # print(f'批量检测完毕')
+                print(f'批量检测完毕')
             except Exception as e:
                 print("Error calling Clash API:", e)
             finally:
-                # print(f'关闭Clash API')
+                print(f'关闭Clash API')
                 if clash_process is not None:
                     clash_process.kill()
 
@@ -1332,4 +1332,4 @@ def test_proxy_speed(proxy_name):
 
 if __name__ == '__main__':
     links = []
-    work(links, check=True, only_check=False, allowed_types=["ss","hysteria2","vless","vmess","trojan"])
+    work(links, check=True, only_check=False, allowed_types=["ss","hysteria2","hy2","vless","vmess","trojan"])
