@@ -1464,8 +1464,8 @@ def start_download_test(proxy_names,speed_limit=10):
     for i, result in enumerate(sorted_list[:LIMIT], 1):
         sorted_proxy_names.append(result[0])
         # 节点名称加入测速结果
-        sorted_proxy_names_speed.append(f"{result[0]} {result[1]}Mb/s")
-        print(f"{i}. {result[0]}: {result[1]}Mb/s")
+        sorted_proxy_names_speed.append(f"{result[0]} {result[1]}MB/s")
+        print(f"{i}. {result[0]}: {result[1]}MB/s")
     # print(f"节点名称加入测速结果")
     # print(f"{sorted_proxy_names_speed}")
     return sorted_proxy_names, sorted_proxy_names_speed
