@@ -1445,7 +1445,7 @@ def work(links,check=False,allowed_types=[],only_check=False):
         print(f"程序执行失败: {e}")
         sys.exit(1)
 
-def start_download_test(proxy_names,speed_limit=10):
+def start_download_test(proxy_names,speed_limit=5):
     """
     开始下载测试
 
