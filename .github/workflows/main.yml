@@ -1,23 +1,20 @@
 name: ClashForge
 
 on:
-  #schedule:
-  #  - cron: '0 7-22/5 * * *'
-  push:
-    paths-ignore:
-      - '**'
+  schedule:
+   - cron: '10,40 * * * *'
   workflow_dispatch:
 
 jobs:
-  run_demo_actions:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           # 转到 Settings > Secrets and variables > Actions
-          # 点击 New repository secret，添加 Secret，名称为 BOT，输入你的token
-          token: ${{ secrets.BOT }}
+          # 点击 New repository secret，添加 Secret，名称为 PAT，输入你的token
+          token: ${{ secrets.PAT }}
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -28,13 +25,41 @@ jobs:
         run: |
           pip install -r ./requirements.txt
 
+      - name: sub list
+        env:
+          SUB: ${{ secrets.SUB }}
+        run: |
+          # 写订阅文件
+          echo "==========ls==========="
+          ls
+          mkdir -p ./input/
+          echo "==========ls==========="
+          ls
+          echo "==========ls input==========="
+          ls ./input/
+          cat << EOF > ./input/sub.txt
+          $SUB
+          EOF
+          # curl -o ./input/clash.yaml $SUB
+          # echo "==========cat==========="
+          # cat ./input/sub.txt
+          # cat ./input/clash.yaml
+          
       - name: Run ClashForge.py
         run: python ClashForge.py
 
-      - name: Commit and push file
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add clash_config.yaml
-          git commit -m "update" || echo "No changes to commit"
-          git push https://${{ secrets.BOT }}:x-oauth-basic@github.com/${GITHUB_REPOSITORY}.git
+      # - name: Commit and push file
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git add clash_config.yaml
+      #     git commit -m "update" || echo "No changes to commit"
+      #     git push https://${{ secrets.BOT }}:x-oauth-basic@github.com/${GITHUB_REPOSITORY}.git
+      
+      - name: deploy to gists
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.PAT }}
+          gist_id: ${{ secrets.ID }}
+          gist_file_name: clashforge.yaml
+          file_path: clash_config.yaml
