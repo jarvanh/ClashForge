@@ -33,7 +33,7 @@ from requests_html import HTMLSession
 # 存储所有节点的速度测试结果
 SPEED_TEST = True
 SPEED_TEST_LIMIT = 500 # 只测试前500个节点的下行速度，每个节点测试10秒
-TEST_URL = "http://www.gstatic.com/generate_204"
+# TEST_URL = "http://www.gstatic.com/generate_204"
 TEST_URL = "https://wirelesscdn-download.xuexi.cn"
 CLASH_API_PORTS = [9090]
 CLASH_API_HOST = "127.0.0.1"
