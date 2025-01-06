@@ -34,6 +34,7 @@ from requests_html import HTMLSession
 SPEED_TEST = True
 SPEED_TEST_LIMIT = 500 # 只测试前500个节点的下行速度，每个节点测试10秒
 TEST_URL = "http://www.gstatic.com/generate_204"
+TEST_URL = "https://wirelesscdn-download.xuexi.cn"
 CLASH_API_PORTS = [9090]
 CLASH_API_HOST = "127.0.0.1"
 CLASH_API_SECRET = ""
@@ -1593,7 +1594,8 @@ def test_proxy_speed(proxy_name):
     # 不断发起请求直到达到时间限制
     while time.time() - start_time < test_duration:
         try:
-            response = requests.get("https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", stream=True, proxies=proxies, headers={'Cache-Control': 'no-cache'},                                    timeout=test_duration)
+            # response = requests.get("https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", stream=True, proxies=proxies, headers={'Cache-Control': 'no-cache'},                                    timeout=test_duration)
+            response = requests.get("https://wirelesscdn-download.xuexi.cn/publish/xuexi_android/latest/xuexi_android_10002068.apk", stream=True, proxies=proxies, headers={'Cache-Control': 'no-cache'},                                    timeout=test_duration)
             for data in response.iter_content(chunk_size=524288):
                 total_length += len(data)
                 if time.time() - start_time >= test_duration:
