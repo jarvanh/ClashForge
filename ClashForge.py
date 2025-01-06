@@ -1594,7 +1594,7 @@ def test_proxy_speed(proxy_name):
     while time.time() - start_time < test_duration:
         try:
             # response = requests.get("https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", stream=True, proxies=proxies, headers={'Cache-Control': 'no-cache'},                                    timeout=test_duration)
-            response = requests.get("https://wirelesscdn-download.xuexi.cn/publish/xuexi_android/latest/xuexi_android_10002068.apk", stream=True, proxies=proxies, headers={'Cache-Control': 'no-cache'},                                    timeout=test_duration)
+            response = requests.get("https://dldir1.qq.com/qqfile/qq/PCQQ9.7.17/QQ9.7.17.29225.exe", stream=True, proxies=proxies, headers={'Cache-Control': 'no-cache'},                                    timeout=test_duration)
             for data in response.iter_content(chunk_size=524288):
                 total_length += len(data)
                 if time.time() - start_time >= test_duration:
